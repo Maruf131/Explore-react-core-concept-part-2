@@ -1,8 +1,14 @@
+import { Suspense } from "react";
 import "./App.css";
 import Counter from "./Counter";
 import Friends from "./Friends";
+import LoadData from "./LoadData";
 import Player from "./Player";
 import Users from "./Users";
+
+// load data from Api
+const loadUsers = fetch('https://jsonplaceholder.typicode.com/users')
+.then(res => res.json())
 
 function App() {
   // normal function
@@ -20,6 +26,9 @@ function App() {
   return (
     <>
       <h1>Vite + React</h1>
+      <Suspense fallback={<h3>Loading.....</h3>}>
+        <LoadData loadUsers={loadUsers}></LoadData>
+      </Suspense>
       <Friends></Friends>
       <Users></Users>
       <Player></Player>
